@@ -11,7 +11,7 @@ import SwiftUI
 struct m4hwApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Second()
         }
     }
 }
