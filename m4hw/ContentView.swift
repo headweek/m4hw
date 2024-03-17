@@ -8,16 +8,36 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+    
+    @State var selectedTab: Tab = .house
+    
+    init() {
+            UITabBar.appearance().isHidden = true
         }
-        .padding()
+    
+    var body: some View {
+        ZStack{
+            VStack{
+                TabView(selection: $selectedTab){
+                    ForEach(Tab.allCases, id: \.rawValue){item in
+                        HStack{
+                            Image(systemName: item.rawValue)
+                            Text("\(item.rawValue.capitalized)")
+                                .bold()
+                                .animation(nil, value: selectedTab)
+                        }
+                        .tag(item)
+                    }
+                }
+            }
+            VStack {
+                Spacer()
+                StorageFile(selectedTab: $selectedTab)
+            }
+        }
     }
 }
+
 
 #Preview {
     ContentView()
